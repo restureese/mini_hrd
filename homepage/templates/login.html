@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>Mini HRD</title>
+</head>
+<body>
+	<h1>Silahkan Login</h1>
+
+	<form action="/login/" method="POST">
+		<!-- pemeriksaan cross site request forgery -->
+		{% csrf_token %}
+
+		{% if messages %}
+			<ul>
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		<p>Username: <input type="text" name="username" placeholder="Silahkan masukkan username"></p>
+		<p>Password: <input type="password" name="password" placeholder="Silahkan masukkan password"></p>
+		<p><input type="submit" value="Log In"></p>
+	</form>
+</body>
+</html>
