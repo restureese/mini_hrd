@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	
+	{% include "layout/head.html" %}
+
+</head>
+<body>
+
+	<div id="wrapper">
+		
+		<!-- navigasi -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			
+			{% include "layout/nav.html" %}
+
+			{% include "layout/sidebar.html" %}
+		</nav>
+		
+		<div id="page-wrapper">
+
+			{% block content %}
+			{% endblock %}
+
+		</div><!-- page-wrapper -->
+
+	</div><!-- wrapper -->
+
+	{% include "layout/js.html" %}
+
+	{% block inline_js %}
+	{% endblock %}
+</body>
+</html>
