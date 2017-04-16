@@ -48,3 +48,16 @@ def pengajuan_izin(request):
 def daftar_izin(request):
 	daftar_izin = Izin.objects.filter(karyawan__id=request.session['karyawan_id'])
 	return render(request, 'daftar_izin.html',{'daftar_izin':daftar_izin})
+
+@login_required(login_url=settings.LOGIN_URL)
+def tampil_grafik(request,bulan,tahun):
+	temp_chart_data = []
+	daftar_hadir = Kehadiran.objects.filter(waktu__year=tahun, waktu__month=bulan,karyawan__id=request.session['karyawan_id'])
+	temp_chart_data.append({'x':'hadir','a':daftar_hadir.filter(jenis_kehadiran='hadir').count()})
+	temp_chart_data.append({'x':'izin','a':daftar_hadir.filter(jenis_kehadiran='izin').count()})
+	temp_chart_data.append({'x':'alpha','a':daftar_hadir.filter(jenis_kehadiran='alpha').count()})
+	temp_chart_data.append({'x':'cuti','a':daftar_hadir.filter(jenis_kehadiran='cuti').count()})
+
+	chart_data = json.dumps({'data':temp_chart_data})
+
+	return render(request,'new/tampil_grafil.html',{'chart_data':chart_data,'bulan':bulan,'tahun':tahun})
